@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Raw / generated datasets
+data/raw/
+data/processed/
+*.parquet
+*.feather
+
+# Generated model artifacts
+*.pkl
+*.joblib
+*.model
+*.ubj
+
+# Generated results / figures can be added intentionally
+results/*.tmp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
