@@ -10,7 +10,11 @@ Historical filename:
 phase-2-kaggle_Final04152025.ipynb
 ```
 
-The GitHub copy that previously appeared under that name was **0 bytes** and was removed during the repository cleanup. It was not the real notebook.
+The GitHub copy that previously appeared under that name was **0 bytes** and was removed during the repository cleanup. The real notebook, with its original outputs, is now archived unchanged at:
+
+**[`historical/phase-2-kaggle_Final04152025.ipynb`](historical/phase-2-kaggle_Final04152025.ipynb)**
+
+Its charts, metrics, and the caveats found while reviewing it are summarized in [`results/historical/`](../results/historical/README.md).
 
 ## What the recovered notebook confirms
 

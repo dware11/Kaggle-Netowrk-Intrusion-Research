@@ -8,7 +8,7 @@
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange?logo=scikitlearn&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-Classifier-red)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter&logoColor=white)
-![Status](https://img.shields.io/badge/status-reproduction%20pending-yellow)
+![Status](https://img.shields.io/badge/status-historical%20results%20published%20%C2%B7%20rerun%20pending-yellow)
 
 </div>
 
@@ -20,7 +20,7 @@
 
 This project began as a learning-focused network intrusion detection study. The goal was not only to train a classifier, but to compare how **different feature-selection techniques interact with different model families** and to understand why a model that performs well overall may still perform poorly on specific attack types.
 
-The original work was completed in Kaggle and used the **CIC-DDoS2019** dataset from the Canadian Institute for Cybersecurity at the University of New Brunswick.
+The original work was completed in Kaggle as **Army Research Laboratory–sponsored undergraduate research at PVAMU's CREDIT Center** and used the **CIC-DDoS2019** dataset from the Canadian Institute for Cybersecurity at the University of New Brunswick.
 
 ---
 
@@ -41,6 +41,16 @@ The original work was completed in Kaggle and used the **CIC-DDoS2019** dataset 
 | **Evaluation** | Accuracy, per-class F1, weighted F1, precision, recall, confusion matrices |
 
 > **Research integrity note:** the figures above come from the recovered April 2025 notebook. The full experiment has **not yet been rerun in a clean environment**, so this repository does not currently claim a final “best model” or “best feature selector.”
+
+---
+
+## Historical results preview
+
+![Per-attack F1 by model and feature selection](results/historical/figures/f1_heatmap_by_model_and_fs.png)
+
+In the original April 2025 run, **XGBoost led (91.4% accuracy, 0.92 macro F1 with Chi-Square, 40 features)**. The four feature selectors finished within about one F1 point of each other. **DrDoS_MSSQL, LDAP, and SSDP** were the hardest classes to separate. Reviewing the notebook also surfaced a likely **label-leakage risk** (a row-index column and `Source Port` among the selected features), which the clean rerun will remove.
+
+**→ Full historical results, confusion matrices, and caveats: [`results/historical/`](results/historical/README.md)**
 
 ---
 
@@ -138,6 +148,8 @@ The original GitHub upload contained zero-byte placeholders for the notebook and
 | Identify and cite the original dataset | ✅ |
 | Reconstruct research question and experiment design | ✅ |
 | Remove misleading zero-byte GitHub placeholders | ✅ |
+| Archive original notebook with outputs ([historical](notebooks/historical/)) | ✅ |
+| Publish labeled historical results and leakage review | ✅ |
 | Restore a cleaned notebook to version control | ⏳ |
 | Build reproducible dataset-preparation script | ⏳ |
 | Pin a verified Python environment | ⏳ |
@@ -162,9 +174,11 @@ The recovered Kaggle notebook shows an `imbalanced-learn` / scikit-learn compati
 ├── docs/
 │   └── experiment-design.md   # detailed research methodology
 ├── notebooks/
-│   └── README.md              # notebook recovery / cleanup status
+│   ├── README.md              # notebook recovery / cleanup status
+│   └── historical/            # original April 2025 Kaggle notebook (unchanged)
 └── results/
-    └── README.md              # rules for publishing verified results
+    ├── README.md              # rules for publishing verified results
+    └── historical/            # labeled historical metrics + figures
 ```
 
 Large raw CIC-DDoS2019 CSV files are intentionally **not committed** to this repository. See [`data/README.md`](data/README.md) for the expected source files and setup.
@@ -178,7 +192,7 @@ The next research pass will make the comparison reproducible instead of simply p
 1. Download the official CIC-DDoS2019 source data.
 2. Recreate the same eight-file sampling procedure with fixed random seeds.
 3. Separate preprocessing into a deterministic pipeline.
-4. Fit feature selection using **training data only** to prevent leakage.
+4. Drop identifier columns (`Unnamed: 0`, IPs, ports, timestamps) before selection, and fit feature selection using **training data only** to prevent leakage.
 5. Evaluate the same feature subset sizes across the same classifier matrix.
 6. Save one tidy results table containing aggregate and per-class metrics.
 7. Generate confusion matrices and feature-overlap visualizations.
@@ -212,3 +226,9 @@ Dataset paper:
 ## Research status
 
 This repository is a **research reconstruction in progress**. Historical notebook outputs are preserved as evidence of the original experiment, but final performance claims will be published only after the full pipeline has been reproduced and verified.
+
+---
+
+## Acknowledgments
+
+Research conducted at the **CREDIT Center, Prairie View A&M University**, advised by **Dr. Lin Li**. This research was sponsored by the **Army Research Laboratory** and was accomplished under Grant Number **W911NF-23-1-0402**. The work was presented at the PVAMU CREDIT Center Phase 2 review and as a DoD-ROTC research poster (Spring 2025).
